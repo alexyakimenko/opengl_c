@@ -1,6 +1,8 @@
 #include <GLFW/glfw3.h>
-
 #include <stdio.h>
+
+// Include input functions 
+#include "input/main.c"
 
 int main() {
     glfwInit();
@@ -24,6 +26,9 @@ int main() {
 
     // Render Loop
     while(!glfwWindowShouldClose(window)) {
+        // Calls function from input/ folder
+        // Handles User Input
+        processInput(window);
         // Swaps Front Buffer with Back Buffer
         glfwSwapBuffers(window);
         // Checks if any of events are triggered
