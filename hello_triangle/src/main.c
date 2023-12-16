@@ -3,6 +3,7 @@
 
 // Include callback functions 
 #include "callbacks/main.c"
+#include "util/main.c"
 
 int main() {
     glfwInit();
@@ -26,6 +27,7 @@ int main() {
 
     // Handles user input      
     glfwSetKeyCallback(window, key_callback);
+
 
     // Render Loop
     while(!glfwWindowShouldClose(window)) {
