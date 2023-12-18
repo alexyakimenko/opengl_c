@@ -16,7 +16,7 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     // Window Creation
-    GLFWwindow* window = glfwCreateWindow(960, 540, "Hello Window", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(960, 540, "Hello Triangle", NULL, NULL);
     if(window == NULL) {
         printf("Failed to create GLFW window!\n");
         glfwTerminate();
