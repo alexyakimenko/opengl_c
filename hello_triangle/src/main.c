@@ -1,3 +1,4 @@
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 
@@ -27,6 +28,14 @@ int main() {
 
     // Handles user input      
     glfwSetKeyCallback(window, key_callback);
+
+    // Glad
+    if(
+        !gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)
+    ) {
+        printf("Filed to initialize GLAD!\n");
+        return -1;
+    }
 
 
     // Render Loop
