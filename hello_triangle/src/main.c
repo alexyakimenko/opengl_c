@@ -29,17 +29,25 @@ int main() {
     // Handles user input      
     glfwSetKeyCallback(window, key_callback);
 
-    // Glad
+
+    // Glad init
     if(
         !gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)
     ) {
-        printf("Filed to initialize GLAD!\n");
+        printf("Failed to initialize GLAD!\n");
         return -1;
     }
+
+    // Changes viewport on window change size 
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 
     // Render Loop
     while(!glfwWindowShouldClose(window)) {
+        // Rendering
+        glClearColor(0.1f, 0.1f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
         // Swaps Front Buffer with Back Buffer
         glfwSwapBuffers(window);
         // Checks if any of events are triggered
