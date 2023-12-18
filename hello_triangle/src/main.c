@@ -28,7 +28,8 @@ int main() {
 
     // Handles user input      
     glfwSetKeyCallback(window, key_callback);
-
+    // Changes viewport on window change size 
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // Glad init
     if(
@@ -37,10 +38,24 @@ int main() {
         printf("Failed to initialize GLAD!\n");
         return -1;
     }
+    
+    // Rendering Triangle
 
-    // Changes viewport on window change size 
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    // Triangle Vertices ∆
+    float vertices[] = {
+        -0.5f, -0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f,
+         0.0f,  0.5f, 0.0f 
+    };
 
+    // Unique id of Vertex Buffer Object
+    unsigned int VBO;
+    // Generate Buffer 
+    glGenBuffers(1, &VBO);
+    // Binds our buffer to opengl array buffer
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    // Copies data to buffer
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     // Render Loop
     while(!glfwWindowShouldClose(window)) {
