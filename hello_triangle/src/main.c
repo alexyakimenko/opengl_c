@@ -50,6 +50,8 @@ int main() {
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
     // Compiles shader ...
     glCompileShader(vertexShader);
+    // Free memory
+    free((void*) vertexShaderSource);
     { // Checks compilation success
         int success;
         char info[512];
@@ -71,6 +73,8 @@ int main() {
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
     // Compiles shader ...
     glCompileShader(fragmentShader);
+    // Free memory
+    free((void*) fragmentShaderSource);
     { // Checks compilation success
         int success;
         char info[512];
