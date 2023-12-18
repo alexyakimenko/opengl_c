@@ -41,6 +41,26 @@ int main() {
     
     // Rendering Triangle
 
+    // Gets shader string from file 
+    const char* vertexShaderSource = getShader(VERTEX);
+    // Creates vertex shader and stores its id
+    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    // Attaches shader code to the shader object
+    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    // Compiles shader ...
+    glCompileShader(vertexShader);
+    { // Checks compilation success
+        int success;
+        char info[512];
+        // Gets compilation status
+        glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+        if(!success) {
+            // Gets shader logs
+            glGetShaderInfoLog(vertexShader, sizeof(info), NULL, info);
+            printf("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n%s\n", info);
+        }
+    }
+
     // Triangle Vertices ∆
     float vertices[] = {
         -0.5f, -0.5f, 0.0f,
