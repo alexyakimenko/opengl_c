@@ -41,6 +41,7 @@ int main() {
     
     // Rendering Triangle
 
+    // Vertex Shader
     // Gets shader string from file 
     const char* vertexShaderSource = getShader(VERTEX);
     // Creates vertex shader and stores its id
@@ -58,6 +59,27 @@ int main() {
             // Gets shader logs
             glGetShaderInfoLog(vertexShader, sizeof(info), NULL, info);
             printf("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n%s\n", info);
+        }
+    }
+
+    // Fragment Shader
+    // Gets shader string from file 
+    const char* fragmentShaderSource = getShader(FRAGMENT);
+    // Creates fragment shader and stores its id
+    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    // Attaches shader code to the shader object
+    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+    // Compiles shader ...
+    glCompileShader(fragmentShader);
+    { // Checks compilation success
+        int success;
+        char info[512];
+        // Gets compilation status
+        glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+        if(!success) {
+            // Gets shader logs
+            glGetShaderInfoLog(fragmentShader, sizeof(info), NULL, info);
+            printf("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n%s\n", info);
         }
     }
 
