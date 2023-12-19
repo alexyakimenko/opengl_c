@@ -112,11 +112,11 @@ int main() {
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
-    // Triangle Vertices ∆
+    // Triangle Vertices ∆ with Colors
     float vertices[] = {
-        -0.5f, -0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
-         0.0f,  0.5f, 0.0f 
+        -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 
+         0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+         0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f
     };
 
     // Unique id of Vertex Buffer Object
@@ -144,13 +144,16 @@ int main() {
     // fourth param: should values be normalized or not 
     // fifth param: stride 
     // sixth param: offset where our data begins in the buffer
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*) 0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*) 0);
     glEnableVertexAttribArray(0);
+    // Does the same but for other three values
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*) (3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
     // Render Loop
     while(!glfwWindowShouldClose(window)) {
         // Rendering
-        glClearColor(0.1f, 0.1f, 0.3f, 1.0f);
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         // Draws triangle
