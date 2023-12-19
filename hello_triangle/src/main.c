@@ -87,6 +87,30 @@ int main() {
         }
     }
 
+    // Shader program
+    // Creates shader program
+    unsigned int shaderProgram = glCreateProgram();
+    // Attaches vertex shader to the program
+    glAttachShader(shaderProgram, vertexShader);
+    // Attaches fragment shader to the program
+    glAttachShader(shaderProgram, fragmentShader);
+    // Links our shader program
+    glLinkProgram(shaderProgram);
+    { // Checks linking success
+        int success;
+        char info[512];
+        // Gets linking status
+        glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+        if(!success) {
+            // Gets program logs
+            glGetProgramInfoLog(shaderProgram, sizeof(info), NULL, info);
+            printf("ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s\n", info);
+        }
+    }
+    // Deletes shaders after they were attached in shader program
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+
     // Triangle Vertices ∆
     float vertices[] = {
         -0.5f, -0.5f, 0.0f,
