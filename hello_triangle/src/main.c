@@ -153,6 +153,14 @@ int main() {
         glClearColor(0.1f, 0.1f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        // Draws triangle
+        // Uses following shader program
+        glUseProgram(shaderProgram);
+        // Binds VAO 
+        glBindVertexArray(VAO);
+        // Draws primitive triangle with starting index 0 and amount of 3 vertices  
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
         // Swaps Front Buffer with Back Buffer
         glfwSwapBuffers(window);
         // Checks if any of events are triggered
