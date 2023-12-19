@@ -128,6 +128,17 @@ int main() {
     // Copies data to buffer
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+    // Tells opengl how to interpret vertex data
+    // first param: location of this attribute
+    // second param: size of vertex attribute (vec3 -> 3)
+    // third param: specifies the type of vertex data
+    // fourth param: should values be normalized or not 
+    // fifth param: stride 
+    // sixth param: offset where our data begins in the buffer
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*) 0);
+    // Enables vertex attribute with index n
+    glEnableVertexAttribArray(0);
+
     // Render Loop
     while(!glfwWindowShouldClose(window)) {
         // Rendering
