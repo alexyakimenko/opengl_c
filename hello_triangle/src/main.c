@@ -4,6 +4,7 @@
 
 // Include callback functions 
 #include "callbacks/main.c"
+// Include utility functions
 #include "util/main.c"
 
 int main() {
