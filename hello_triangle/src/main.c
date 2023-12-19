@@ -123,6 +123,15 @@ int main() {
     unsigned int VBO;
     // Generate Buffer 
     glGenBuffers(1, &VBO);
+
+    // Unique id of Vertex Array Object 
+    unsigned int VAO;
+    // Generato VAO
+    glGenVertexArrays(1, &VAO);
+
+    // Binds VAO before other binds
+    glBindVertexArray(VAO);
+
     // Binds our buffer to opengl array buffer
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     // Copies data to buffer
@@ -136,7 +145,6 @@ int main() {
     // fifth param: stride 
     // sixth param: offset where our data begins in the buffer
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*) 0);
-    // Enables vertex attribute with index n
     glEnableVertexAttribArray(0);
 
     // Render Loop
