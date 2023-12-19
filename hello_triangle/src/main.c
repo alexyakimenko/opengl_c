@@ -112,17 +112,11 @@ int main() {
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
-    // Rectangle Vertices []  
+    // Triangle Vertices ∆
     float vertices[] = {
-         0.5f,  0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
         -0.5f, -0.5f, 0.0f,
-        -0.5f,  0.5f, 0.0f,
-    };
-    // Order to draw
-    unsigned int indices[] = {
-        0, 1, 3,
-        1, 2, 3
+         0.5f, -0.5f, 0.0f,
+         0.0f,  0.5f, 0.0f 
     };
 
     // Unique id of Vertex Buffer Object
@@ -135,11 +129,6 @@ int main() {
     // Generato VAO
     glGenVertexArrays(1, &VAO);
 
-    // Unique id of Element Buffer Object
-    unsigned int EBO;
-    // Generate EBO
-    glGenBuffers(1, &EBO);
-
     // Binds VAO before other binds
     glBindVertexArray(VAO);
 
@@ -147,11 +136,6 @@ int main() {
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     // Copies data to buffer
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    // Binds our element buffer to opengl element array  buffer
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    // Copies data to buffer
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // Tells opengl how to interpret vertex data
     // first param: location of this attribute
@@ -174,11 +158,9 @@ int main() {
         glUseProgram(shaderProgram);
         // Binds VAO 
         glBindVertexArray(VAO);
-        // Wireframe mode
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        // Draws elements from EBO
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        
+        // Draws primitive triangle with starting index 0 and amount of 3 vertices  
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
         // Swaps Front Buffer with Back Buffer
         glfwSwapBuffers(window);
         // Checks if any of events are triggered
