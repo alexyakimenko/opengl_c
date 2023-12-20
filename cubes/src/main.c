@@ -1,6 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stdio.h>
+#include <stb_image.h>
 
 // Include callback functions 
 #include "callbacks/main.c"
@@ -162,6 +163,38 @@ int main() {
     // sixth param: offset where our data begins in the buffer
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*) 0);
     glEnableVertexAttribArray(0);
+
+    // Texture
+    // Unique id of texture
+    unsigned int texture;
+    // Generates texture 
+    glGenTextures(1, &texture);
+    // Binds our texture to opengl texture
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    // Sets texture wrapping/filtering options
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    // Loads image 
+    int width, height, nrChannels;
+    unsigned char* data = stbi_load("assets/textures/container.jpg", &width, &height, &nrChannels, 0);
+
+    // Generates texture
+    // first param: texture target
+    // second param: mipmap level
+    // third param: format that we want to store the texture
+    // fourth & fifth params: width & height ...
+    // sixth param: border (for some reasons should always be 0) 
+    // seventh & eighth params: format & datatype of source image
+    // ninth param: image data (array of pixels)
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    // Generates mipmap for currently bound texture
+    glGenerateMipmap(GL_TEXTURE_2D);
+    // Free image memory
+    stbi_image_free(data);
 
     // Render Loop
     while(!glfwWindowShouldClose(window)) {
