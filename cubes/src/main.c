@@ -1,5 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stb_image.h>
 
@@ -172,11 +173,11 @@ int main() {
 
     // Texture
     // Unique id of texture
-    unsigned int texture;
+    unsigned int texture1;
     // Generates texture 
-    glGenTextures(1, &texture);
+    glGenTextures(1, &texture1);
     // Binds our texture to opengl texture
-    glBindTexture(GL_TEXTURE_2D, texture);
+    glBindTexture(GL_TEXTURE_2D, texture1);
 
     // Sets texture wrapping/filtering options
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -202,6 +203,29 @@ int main() {
     // Free image memory
     stbi_image_free(data);
 
+    // Does the same with second texture 
+    unsigned int texture2;
+    glGenTextures(1, &texture2);
+    glBindTexture(GL_TEXTURE_2D, texture2);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    // Flips image on load
+    stbi_set_flip_vertically_on_load(true);
+    data = stbi_load("assets/textures/awesomeface.png", &width, &height, &nrChannels, 0);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    stbi_image_free(data);
+
+    // Specifies which texture which uniform
+    glUseProgram(shaderProgram);
+    glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
+    glUniform1i(glGetUniformLocation(shaderProgram, "texture2"), 1);
+
     // Render Loop
     while(!glfwWindowShouldClose(window)) {
         // Rendering
@@ -211,8 +235,13 @@ int main() {
         // Draws rectangle
         // Uses following shader program
         glUseProgram(shaderProgram);
+        // Activates first texture
+        glActiveTexture(GL_TEXTURE0);
         // Binds texture
-        glBindTexture(GL_TEXTURE_2D, texture);
+        glBindTexture(GL_TEXTURE_2D, texture1);
+        // The same but with second texture
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, texture2);
         // Binds VAO 
         glBindVertexArray(VAO);
         // Draws elements from EBO
