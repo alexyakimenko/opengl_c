@@ -18,7 +18,7 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     // Window Creation
-    GLFWwindow* window = glfwCreateWindow(960, 540, "Hello Triangle", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(960, 540, "Hello Textures", NULL, NULL);
     if(window == NULL) {
         printf("Failed to create GLFW window!\n");
         glfwTerminate();
@@ -205,12 +205,14 @@ int main() {
     // Render Loop
     while(!glfwWindowShouldClose(window)) {
         // Rendering
-        glClearColor(0.1f, 0.1f, 0.3f, 1.0f);
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         // Draws rectangle
         // Uses following shader program
         glUseProgram(shaderProgram);
+        // Binds texture
+        glBindTexture(GL_TEXTURE_2D, texture);
         // Binds VAO 
         glBindVertexArray(VAO);
         // Draws elements from EBO
