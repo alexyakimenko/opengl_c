@@ -113,12 +113,12 @@ int main() {
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
-    // Rectangle Vertices []  
+    // Rectangle Vertices [] with Colors and Texture Coords  
     float vertices[] = {
-         0.5f,  0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
-        -0.5f, -0.5f, 0.0f,
-        -0.5f,  0.5f, 0.0f,
+         0.5f,  0.5f, 0.0f,    1.0f, 0.0f, 0.0f,    1.0f, 1.0f, // top right
+         0.5f, -0.5f, 0.0f,    0.0f, 1.0f, 0.0f,    1.0f, 0.0f, // bottom right
+        -0.5f, -0.5f, 0.0f,    0.0f, 0.0f, 1.0f,    0.0f, 0.0f, // bottom left
+        -0.5f,  0.5f, 0.0f,    1.0f, 1.0f, 0.0f,    0.0f, 1.0f, // top left
     };
     // Order to draw
     unsigned int indices[] = {
@@ -161,8 +161,14 @@ int main() {
     // fourth param: should values be normalized or not 
     // fifth param: stride 
     // sixth param: offset where our data begins in the buffer
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*) 0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*) 0);
     glEnableVertexAttribArray(0);
+    // Does the same but for other three values
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*) (3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+    // Does the same but for other two values
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*) (6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 
     // Texture
     // Unique id of texture
@@ -202,13 +208,11 @@ int main() {
         glClearColor(0.1f, 0.1f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // Draws triangle
+        // Draws rectangle
         // Uses following shader program
         glUseProgram(shaderProgram);
         // Binds VAO 
         glBindVertexArray(VAO);
-        // Wireframe mode
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         // Draws elements from EBO
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         
