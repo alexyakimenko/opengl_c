@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include "callbacks/callbacks.cpp"
+
 const int W_WIDTH = 960;
 const int W_HEIGHT = 540;
 
@@ -26,6 +28,9 @@ int main(int, char**) {
     }
 
     glfwMakeContextCurrent(window);
+
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetKeyCallback(window, key_callback);
 
     while(!glfwWindowShouldClose(window)) {
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
