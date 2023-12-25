@@ -1,0 +1,3 @@
+[submodule "cubes_cpp/glfw"]
+	path = cubes_cpp/glfw
+	url = https://github.com/glfw/glfw.git
