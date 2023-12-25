@@ -8,6 +8,8 @@ add_subdirectory(glfw)
 
 include_directories(${GLFW_SOURCE_DIR}/deps)
 
+include_directories(./include)
+
 file(GLOB source_files
     "src/main.cpp"
 )
