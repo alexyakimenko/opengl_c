@@ -20,7 +20,10 @@ int main(int, char**) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
+
+    #ifdef __APPLE__ // If apple product
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+    #endif
 
     GLFWwindow* window = glfwCreateWindow(W_WIDTH, W_HEIGHT, "Cubes", NULL, NULL);
 
