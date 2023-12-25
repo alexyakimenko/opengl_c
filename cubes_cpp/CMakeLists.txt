@@ -5,10 +5,12 @@ find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIRS})
 
 add_subdirectory(glfw)
-
 include_directories(${GLFW_SOURCE_DIR}/deps)
 
-include_directories(./include)
+add_subdirectory(glm)
+include_directories(glm/glm)
+
+include_directories(include)
 
 file(GLOB source_files
     "src/main.cpp"
@@ -21,5 +23,6 @@ add_executable(opengl_c
 
 target_link_libraries(opengl_c
     glfw
+    glm::glm
     ${OPENGL_LIBRARIES}
 )
