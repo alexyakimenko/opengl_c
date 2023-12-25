@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "callbacks/callbacks.cpp"
+#include "util/shader.h"
 
 const int W_WIDTH = 960;
 const int W_HEIGHT = 540;
