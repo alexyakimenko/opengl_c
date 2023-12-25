@@ -9,7 +9,7 @@ add_subdirectory(glfw)
 include_directories(${GLFW_SOURCE_DIR}/deps)
 
 file(GLOB source_files
-    "src/*.cpp"
+    "src/main.cpp"
 )
 
 add_executable(opengl_c 
